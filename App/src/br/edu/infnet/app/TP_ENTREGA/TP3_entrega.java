@@ -1,27 +1,28 @@
-package br.edu.infnet.app.tps;
+package br.edu.infnet.app.TP_ENTREGA;
 
 import java.util.Scanner;
 
-import br.edu.infnet.app.auxiliar.Constante;
-import br.edu.infnet.app.dominio.Administrativo;
-import br.edu.infnet.app.dominio.Funcionario;
-import br.edu.infnet.app.dominio.Programador;
 
-public class TP2 {
+import br.edu.infnet.app.auxiliar.Constante_pessoa;
+import br.edu.infnet.app.dominio.Aluno;
+import br.edu.infnet.app.dominio.Pessoa;
+import br.edu.infnet.app.dominio.Professor;
 
-	private static Funcionario[] funcionarios;
+public class TP3_entrega {
+
+	private static Pessoa[] pessoas;
 
 	private static void imprimir() {		
-		for (int i = 0; i < Constante.TAMANHO; i++) {
-			if(funcionarios[i] != null) {
-				funcionarios[i].imprimir();
+		for (int i = 0; i < Constante_pessoa.TAMANHO; i++) {
+			if(pessoas[i] != null) {
+				pessoas[i].imprimir(i);
 			}
 		}
 	}
 
 	public static void main(String[] args) {
 
-		funcionarios = new Funcionario[Constante.TAMANHO];
+		pessoas = new Pessoa[Constante_pessoa.TAMANHO];
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -29,48 +30,45 @@ public class TP2 {
 		int pos = 0;
 
 		do {
-			System.out.println("[1] Cadastrar Administrativo");
-			System.out.println("[2] Cadastrar Programador");
-			System.out.println("[3] Consultar Funcionário");
-			System.out.println("[4] Consultar todos");
-			System.out.println("[5] Sair");
+			System.out.println("[1] Cadastrar Aluno");
+			System.out.println("[2] Cadastrar Professor");
+			System.out.println("[3] Consultar Pessoa");
+			System.out.println("[4] Sair");
 			
 			System.out.print("Informe a opção desejada: ");						
 			opcao = in.next();
 			
 			switch (opcao) {
 			case "1":
-				if(pos < Constante.TAMANHO) {
+				if(pos < Constante_pessoa.TAMANHO) {
 					
-					Administrativo adm = new Administrativo();
+					Aluno adm = new Aluno();
 					
 					System.out.print("Informe o seu nome: ");	
 					adm.setNome(in.next());
 	
 					System.out.print("Informe a sua idade: ");	
 					adm.setIdade(in.nextInt());
-	
-					System.out.print("Informe o seu salário: ");	
-					adm.setSalario(in.nextFloat());
-					
-					System.out.print("Informe o seu bônus: ");	
-					adm.setBonus(in.nextFloat());
+						
+					System.out.print("Informe o seu ano letivo: ");	
+					adm.setAno_letivo(in.nextFloat());
 
-					System.out.print("Informe o seu desconto: ");	
-					adm.setDesconto(in.nextFloat());
-					
-					funcionarios[pos] = adm;
+					System.out.print("Informe o seu desconto escolar (%): ");	
+					adm.setDesconto_escolar(in.nextFloat());
+										
+					pessoas[pos] = adm;
 
-					funcionarios[pos].imprimir();
+					pessoas[pos].imprimir(pos);
 
 					pos++;
+									
 				} else {
 					System.out.println("Impossível realizar um novo cadastramento!");
 				}
 				break;
 
 			case "2":
-				if(pos < Constante.TAMANHO) {
+				if(pos < Constante_pessoa.TAMANHO) {
 										
 					System.out.print("Informe o seu nome: ");
 					String nome = in.next();
@@ -78,43 +76,37 @@ public class TP2 {
 					System.out.print("Informe a sua idade: ");
 					int idade = in.nextInt();
 										
-					Programador prog = new Programador(nome, idade);
+					Professor prog = new Professor(nome, idade);
 					
 					System.out.print("Informe o seu salário: ");	
 					prog.setSalario(in.nextFloat());
 					
-					System.out.print("Informe se é fullstack: ");	
-					prog.setDevFull(in.nextBoolean());
-
 					System.out.print("Informe o sua linguagem principal: ");	
 					prog.setLinguagem(in.next());
 					
-					funcionarios[pos] = prog;
+					pessoas[pos] = prog;
 
-					funcionarios[pos].imprimir();
+					
+					pessoas[pos].imprimir(pos);
 
 					pos++;
 				} else {
 					System.out.println("Impossível realizar um novo cadastramento!");
 				}
 				break;
-
+				
 			case "3":
-				System.out.print("Informe o funcionário para impressão: ");						
+				System.out.print("Informe o índice para impressão: ");						
 				int id = in.nextInt();
 
 				if(id >= 0 && id < pos) {
-					funcionarios[id].imprimir();
+					pessoas[id].imprimir(pos);
 				} else {
 					System.out.println("O índice ["+id+"] é inválido!!!");
 				}
 				break;
 
 			case "4":
-				imprimir();
-				break;
-
-			case "5":
 				System.out.println("Saída");
 				break;
 
